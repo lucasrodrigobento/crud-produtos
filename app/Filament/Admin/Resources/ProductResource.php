@@ -74,12 +74,6 @@ class ProductResource extends Resource
                     'Inativo' => 'Inativo',
                 ]),
             Filter::make('search')
-                ->form([
-                    TextInput::make('search')
-                        ->label('Busca')
-                        ->placeholder('Digite para buscar...')
-                        ->debounce(500),
-                ])
                 ->query(function ($query, $data) {
                     if ($data['search']) {
                         $query->where(function ($query) use ($data) {
@@ -88,7 +82,10 @@ class ProductResource extends Resource
                         });
                     }
                 }),
-        ]);
+        ])
+            ->searchable()
+            ->searchPlaceholder('Digite para buscar...')
+            ->searchDebounce('2000ms');
     }
 
     /**
