@@ -22,12 +22,9 @@ Este projeto é um sistema de gerenciamento de produtos desenvolvido com **Larav
 2. **Tabela de Produtos**:
    - Configurada com campos básicos e suporte para **Soft Deletes**.
 
----
+3. **DTO (Data Transfer Object)**
 
-## Funcionalidades Pendentes
-
-- **DTO (Data Transfer Object)**: Não implementado.
-- **Busca Dinâmica com Debounce (Livewire)**: Não implementado.
+4. **Busca Dinâmica com Debounce (Livewire)**
 
 ---
 
