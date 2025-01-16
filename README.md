@@ -90,7 +90,7 @@ http://127.0.0.1:8000/logout
 
 http://127.0.0.1:8000/forgot-password
 
-http://127.0.0.1/admin
+http://127.0.0.1:8000/admin
 
 http://127.0.0.1:8000/admin/products
 
