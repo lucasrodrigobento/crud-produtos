@@ -66,10 +66,7 @@ class ProductResource extends Resource
         ])->filters([
             SelectFilter::make('status')
                 ->label('Status')
-                ->options([
-                    'Ativo' => 'Ativo',
-                    'Inativo' => 'Inativo',
-                ])
+                ->options(ProductStatus::options())
         ])
             ->searchable()
             ->searchPlaceholder('Digite para buscar...')

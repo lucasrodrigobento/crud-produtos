@@ -2,6 +2,7 @@
 
 return [
     'account' => [
+        'logout' => 'Sair',
         'profile' => 'Perfil',
         'settings' => 'Configurações',
     ],
@@ -13,5 +14,5 @@ return [
         'previous' => '&laquo; Anterior',
         'next' => 'Próximo &raquo;',
     ],
-    'search.placeholder' => 'Digite para buscar...',
+    'dashboard' => 'Dashboard',
 ];
