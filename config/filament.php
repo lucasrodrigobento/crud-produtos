@@ -90,4 +90,6 @@ return [
 
     'livewire_loading_delay' => 'default',
 
+    'brand' => env('APP_NAME', 'Growth Solutions'),
+
 ];

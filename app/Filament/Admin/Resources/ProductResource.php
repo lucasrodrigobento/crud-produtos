@@ -99,4 +99,15 @@ class ProductResource extends Resource
             'edit' => \App\Filament\Admin\Resources\ProductResource\Pages\EditProduct::route('/{record}/edit'),
         ];
     }
+
+    public static function getModelLabel(): string
+    {
+        return 'Produto';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Produtos';
+    }
+
 }
