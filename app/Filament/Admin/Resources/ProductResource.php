@@ -3,11 +3,15 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Models\Product;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
 
 class ProductResource extends Resource
 {
@@ -21,18 +25,18 @@ class ProductResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make('nome')
+            TextInput::make('nome')
                 ->label('Nome')
                 ->required()
                 ->maxLength(255),
-            Forms\Components\Textarea::make('descricao')
+            Textarea::make('descricao')
                 ->label('Descrição')
                 ->required(),
-            Forms\Components\TextInput::make('preco')
+            TextInput::make('preco')
                 ->label('Preço')
                 ->numeric()
                 ->required(),
-            Forms\Components\Select::make('status')
+            Select::make('status')
                 ->label('Status')
                 ->options([
                     'Ativo' => 'Ativo',
@@ -48,27 +52,42 @@ class ProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([
-            Tables\Columns\TextColumn::make('nome')
+            TextColumn::make('nome')
                 ->label('Nome')
                 ->sortable()
                 ->searchable(),
-            Tables\Columns\TextColumn::make('preco')
+            TextColumn::make('preco')
                 ->label('Preço')
                 ->sortable(),
-            Tables\Columns\TextColumn::make('status')
+            TextColumn::make('status')
                 ->label('Status')
                 ->sortable(),
-            Tables\Columns\TextColumn::make('created_at')
+            TextColumn::make('created_at')
                 ->label('Criação')
                 ->dateTime()
                 ->sortable(),
         ])->filters([
-            Tables\Filters\SelectFilter::make('status')
+            SelectFilter::make('status')
                 ->label('Status')
                 ->options([
                     'Ativo' => 'Ativo',
                     'Inativo' => 'Inativo',
                 ]),
+            Filter::make('search')
+                ->form([
+                    TextInput::make('search')
+                        ->label('Busca')
+                        ->placeholder('Digite para buscar...')
+                        ->debounce(500),
+                ])
+                ->query(function ($query, $data) {
+                    if ($data['search']) {
+                        $query->where(function ($query) use ($data) {
+                            $query->where('nome', 'like', '%' . $data['search'] . '%')
+                                ->orWhere('descricao', 'like', '%' . $data['search'] . '%');
+                        });
+                    }
+                }),
         ]);
     }
 
