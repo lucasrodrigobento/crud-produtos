@@ -8,10 +8,10 @@ use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
+use App\Enums\ProductStatus;
 
 class ProductResource extends Resource
 {
@@ -38,10 +38,7 @@ class ProductResource extends Resource
                 ->required(),
             Select::make('status')
                 ->label('Status')
-                ->options([
-                    'Ativo' => 'Ativo',
-                    'Inativo' => 'Inativo',
-                ])
+                ->options(ProductStatus::options())
                 ->required(),
         ]);
     }
@@ -72,16 +69,7 @@ class ProductResource extends Resource
                 ->options([
                     'Ativo' => 'Ativo',
                     'Inativo' => 'Inativo',
-                ]),
-            Filter::make('search')
-                ->query(function ($query, $data) {
-                    if ($data['search']) {
-                        $query->where(function ($query) use ($data) {
-                            $query->where('nome', 'like', '%' . $data['search'] . '%')
-                                ->orWhere('descricao', 'like', '%' . $data['search'] . '%');
-                        });
-                    }
-                }),
+                ])
         ])
             ->searchable()
             ->searchPlaceholder('Digite para buscar...')
@@ -109,5 +97,4 @@ class ProductResource extends Resource
     {
         return 'Produtos';
     }
-
 }
